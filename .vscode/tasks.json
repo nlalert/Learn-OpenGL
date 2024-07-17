@@ -6,10 +6,10 @@
             "command": "C:\\msys64\\ucrt64\\bin\\g++.exe",
             "args": [
                 "-fdiagnostics-color=always",
-                //"-g", "${fileDirname}\\Libs\\*.cpp",
+                "-g", "${fileDirname}\\Libs\\*.cpp",
                 "-g", "C:\\External Libs\\glad\\src\\glad.c",
                 "-g", "${fileDirname}\\*.cpp",
-                //"-I", "C:\\External Libs\\GLM",
+                "-I", "C:\\External Libs\\GLM",
                 "-I", "C:\\External Libs\\glad\\include",
                 // "-I", "C:\\External Libs\\GLEW\\include",
                 "-I", "C:\\External Libs\\GLFW\\include",
