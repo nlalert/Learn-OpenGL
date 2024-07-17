@@ -160,31 +160,25 @@ int main()
         glActiveTexture(GL_TEXTURE1); // activate the texture unit first before binding texture
         glBindTexture(GL_TEXTURE_2D, texture2);
     
-        //transformation
-        glm::mat4 trans = glm::mat4(1.0f);
-        trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
-        trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
-
        // get matrix's uniform location and set matrix
         ourShader.use();
-        unsigned int transformLoc = glGetUniformLocation(ourShader.ID, "transform");
-        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
 
-        // now render the triangle
-        ourShader.use();
+        glm::mat4 model         = glm::mat4(1.0f);
+        glm::mat4 view          = glm::mat4(1.0f);
+        glm::mat4 projection    = glm::mat4(1.0f);
+        model       = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        view        = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+        projection  = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 1.0f, 100.0f);
+
+        //projection should set outside (rarely change)
+        ourShader.setMat4("model", model);
+        ourShader.setMat4("view", view);
+        ourShader.setMat4("projection", projection);
+
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         // glDrawArrays(GL_TRIANGLES, 0, 3);
-
-        //transformation
-        trans = glm::mat4(1.0f);
-        trans = glm::translate(trans, glm::vec3(-0.5f, 0.5f, 0.0f));
-        trans = glm::scale(trans, glm::vec3(sin(glfwGetTime())));
-
-       // get matrix's uniform location and set matrix
-        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        
+    
         // swap buffers and poll IO events
         glfwSwapBuffers(window);
         glfwPollEvents();
