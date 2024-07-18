@@ -29,6 +29,7 @@ bool firstMouse = true;
 float deltaTime = 0.0f;	// Time between current frame and last frame
 float lastFrame = 0.0f; // Time of last frame
 
+
 int main()
 {
     //glfw: initialize and configure
